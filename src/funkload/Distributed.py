@@ -580,7 +580,10 @@ class DistributionMgr(threading.Thread):
             remote_res_dir = os.path.join(self.remote_res_dir, worker.name)
             venv = os.path.join(remote_res_dir, self.tarred_testsdir)
             obj = worker.threaded_execute(
-                'bin/fl-run-bench ' + ' '.join(self.cmd_args),
+                # the bin/fl-run-bench path assumes too many uncertainties, like having 
+                # ez_install, and a working version of funkload repo, which is not true atm
+                #'bin/fl-run-bench ' + ' '.join(self.cmd_args),
+                'fl-run-bench ' + ' '.join(self.cmd_args),
                 cwdir=venv)
             trace(".")
             threads.append(obj)
